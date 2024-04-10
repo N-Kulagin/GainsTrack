@@ -1,0 +1,272 @@
+\documentclass[a4paper,12pt]{article}
+%\documentclass[unicode,xcolor=table]{beamer}
+
+% Кодировки и работа с текстом
+\usepackage{cmap} % позволяет искать русский текст в файле и копировать его
+\usepackage[T2A]{fontenc}	% кодировка
+\usepackage[utf8]{inputenc}	% кодировка исходного текста
+\usepackage[english,russian]{babel}	% локализация и переносы
+\usepackage{graphicx} % картинки
+\usepackage{wrapfig} % картинки в тексте
+\usepackage{float} % с тегом [H] позволяет более жёстко определять положение картинки
+\usepackage{hyperref} % гиперссылки
+\usepackage{soul} % перечёркивание текста
+\usepackage{soulutf8} % перечёркивание текста
+\usepackage[normalem]{ulem} % перечёркивание русского текста
+\usepackage{multicol} % записать текст в виде 2 колонок
+\usepackage{indentfirst} % отступ красной строки от 1 строки каждого абзаца
+%\usepackage[backend=bibtex,style=numeric,sorting=none]{biblatex} % библиография BibLaTeX
+\usepackage[backend=bibtex,style=numeric,sorting=none]{biblatex} % библиография BibLaTeX
+\addbibresource{myBiblio.bib} % файл с библиографией
+%\usepackage{cite} % при цитировании нескольких источников подряд они будут указаны через дефис
+\usepackage{anyfontsize} % любой размер шрифта
+\usepackage{lipsum} % lorem ipsum
+\usepackage{tempora} % шрифт Tempora (в т. ч. кирилица)
+\usepackage{adjustbox} % позволяет менять размер таблиц table
+\usepackage{animate} % GIF в Beamer
+\renewcommand{\labelenumii}{\theenumii} % вложенный enumerate 1.1 1.2 1.3
+\renewcommand{\theenumii}{\theenumi.\arabic{enumii}.} % вложенный enumerate 1.1 1.2 1.3
+\counterwithin{figure}{section} % нумеровать картинки в рамках каждой главы отдельно
+\usepackage[rgb]{xcolor} % \textcolor{color}{text} - изменить цвет текста на color
+\definecolor{opaque-red}{RGB}{160,76,74} % определить цвет для xcolor
+\definecolor{darkblue}{RGB}{53,90,179}
+\definecolor{darkyellow}{RGB}{255,206,137}
+\definecolor{Variable}{RGB}{0,76,153} % цвет переменных
+\definecolor{BGColor}{RGB}{240,240,240} % цвет заднего фона
+\definecolor{RowCount}{RGB}{91,91,91} % цвет номера строки
+\definecolor{Comment}{RGB}{106,153,85} % цвет комментария
+\definecolor{Keyword}{RGB}{127,64,122} % цвет ключевого слова
+\definecolor{String}{RGB}{206,114,60} % цвет строки
+\definecolor{Frame}{RGB}{153,153,153} % цвет рамки кода
+\definecolor{Caption}{RGB}{103,103,103} % цвет заголовка кода
+\hypersetup{ % изменение цвета гиперссылок
+	colorlinks=true, % false - ссылки в рамках
+	citecolor=blue, % цвет цитаты через \cite 
+	urlcolor=blue, % цвет URL ссылки
+	linkcolor=black % цвет ссылки на какую-то таблицу через \ref и цвет содержания
+}
+\usepackage{listings} % вставка кода в текст
+\lstdefinestyle{CPP-Style}{ % стиль C++
+	language=C++, % язык
+	backgroundcolor=\color{BGColor}, % цвет заднего фона
+	commentstyle=\color{Comment}, % цвет комментариев
+	keywordstyle=\color{Keyword}, % цвет ключевых слов
+	numberstyle=\color{RowCount}, % цвет номера строки
+	stringstyle=\ttfamily\color{String}, % цвет строк
+	identifierstyle=\color{Variable}, % цвет переменных и классов
+	rulecolor=\color{Frame}, % цвет рамки кода
+	frame=lrb, % рамка, подогнанная к заголовку
+	xleftmargin=\fboxsep, % ...
+	xrightmargin=-\fboxsep, % ...
+	basicstyle=\ttfamily\footnotesize, % стиль кода
+	morekeywords={*,...}, % добавить ключевые слова
+}
+\lstset{ % настройки отображения кода по умолчанию
+	inputencoding=utf8x, % включить русскую кодировку
+	extendedchars=\true, % включить русскую кодировку
+	texcl=true, % раскрашивает цветом комментарии на русском (не работает на многострочных)
+	tabsize=4, % количество пробелов в табуляции
+	keepspaces=true, % оставлять пробелы в тексте
+	showstringspaces=false, % подчёркивать пробелы внутри строк
+	captionpos=t, % название блока кода внизу (bottom)
+	breaklines=true, % автоматический перенос строки
+	numbers=left, % показывать номер строки слева
+	numbersep=-15pt, % расстояние от номера строки до кода
+	showtabs=false, % показывать табуляцию внутри строк
+	literate={~}{ {\textasciitilde} }1 % замена кирилических символов
+	{а}{ {\selectfont\char224} }1
+	{б}{ {\selectfont\char225} }1
+	{в}{ {\selectfont\char226} }1
+	{г}{ {\selectfont\char227} }1
+	{д}{ {\selectfont\char228} }1
+	{е}{ {\selectfont\char229} }1
+	{ё}{ {\"e} }1
+	{ж}{ {\selectfont\char230} }1
+	{з}{ {\selectfont\char231} }1
+	{и}{ {\selectfont\char232} }1
+	{й}{ {\selectfont\char233} }1
+	{к}{ {\selectfont\char234} }1
+	{л}{ {\selectfont\char235} }1
+	{м}{ {\selectfont\char236} }1
+	{н}{ {\selectfont\char237} }1
+	{о}{ {\selectfont\char238} }1
+	{п}{ {\selectfont\char239} }1
+	{р}{ {\selectfont\char240} }1
+	{с}{ {\selectfont\char241} }1
+	{т}{ {\selectfont\char242} }1
+	{у}{ {\selectfont\char243} }1
+	{ф}{ {\selectfont\char244} }1
+	{х}{ {\selectfont\char245} }1
+	{ц}{ {\selectfont\char246} }1
+	{ч}{ {\selectfont\char247} }1
+	{ш}{ {\selectfont\char248} }1
+	{щ}{ {\selectfont\char249} }1
+	{ъ}{ {\selectfont\char250} }1
+	{ы}{ {\selectfont\char251} }1
+	{ь}{ {\selectfont\char252} }1
+	{э}{ {\selectfont\char253} }1
+	{ю}{ {\selectfont\char254} }1
+	{я}{ {\selectfont\char255} }1
+	{А}{ {\selectfont\char192} }1
+	{Б}{ {\selectfont\char193} }1
+	{В}{ {\selectfont\char194} }1
+	{Г}{ {\selectfont\char195} }1
+	{Д}{ {\selectfont\char196} }1
+	{Е}{ {\selectfont\char197} }1
+	{Ё}{ {\"E} }1
+	{Ж}{ {\selectfont\char198} }1
+	{З}{ {\selectfont\char199} }1
+	{И}{ {\selectfont\char200} }1
+	{Й}{ {\selectfont\char201} }1
+	{К}{ {\selectfont\char202} }1
+	{Л}{ {\selectfont\char203} }1
+	{М}{ {\selectfont\char204} }1
+	{Н}{ {\selectfont\char205} }1
+	{О}{ {\selectfont\char206} }1
+	{П}{ {\selectfont\char207} }1
+	{Р}{ {\selectfont\char208} }1
+	{С}{ {\selectfont\char209} }1
+	{Т}{ {\selectfont\char210} }1
+	{У}{ {\selectfont\char211} }1
+	{Ф}{ {\selectfont\char212} }1
+	{Х}{ {\selectfont\char213} }1
+	{Ц}{ {\selectfont\char214} }1
+	{Ч}{ {\selectfont\char215} }1
+	{Ш}{ {\selectfont\char216} }1
+	{Щ}{ {\selectfont\char217} }1
+	{Ъ}{ {\selectfont\char218} }1
+	{Ы}{ {\selectfont\char219} }1
+	{Ь}{ {\selectfont\char220} }1
+	{Э}{ {\selectfont\char221} }1
+	{Ю}{ {\selectfont\char222} }1
+	{Я}{ {\selectfont\char223} }1
+	{і}{ {\selectfont\char105} }1
+	{ї}{ {\selectfont\char168} }1
+	{є}{ {\selectfont\char185} }1
+	{ґ}{ {\selectfont\char160} }1
+	{І}{ {\selectfont\char73} }1
+	{Ї}{ {\selectfont\char136} }1
+	{Є}{ {\selectfont\char153} }1
+	{Ґ}{ {\selectfont\char128} }1
+	{\{}{ { {\color{black}\{} } }1 % Цвет скобок {
+		{\} }{ { {\color{black}\} } } }1 % Цвет скобок }
+}
+
+\usepackage{caption} % заголовок над кодом
+\DeclareCaptionFont{white}{\color{white}} % цвет текста в заголовке кода
+\DeclareCaptionFormat{listing}{\hskip-0.5pt\parbox{\linewidth}{\colorbox{Caption}{\parbox{\linewidth}{#1#2#3}\hskip+1pt }\vskip-4pt} } % форматирование размеров заголовка
+\captionsetup[lstlisting]{format=listing,labelfont=white,textfont=white}
+\renewcommand{\lstlistingname}{Код} % обновление команды lstlisting
+
+% алгоритмы
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+% Общий формат страницы
+\usepackage{geometry} % редактирование полей колонтитулов (отступы сверху-снизу, по краям)
+\geometry{top=20mm} % редактирование ширины полей
+\geometry{bottom=20mm}
+\geometry{left=30mm}
+\geometry{right=20mm}
+\usepackage{titleps} % добавление надписей сверху и снизу страницы
+\newpagestyle{main}{
+	\setheadrule{0.4pt} % толщина линии
+	\sethead{лево}{центр}{право} % написать слева "лево", по центру "центр" и т. д.
+	\setfootrule{0.4pt}
+	\setfoot{}{\thepage}{} % \thepage - номер страницы
+}
+%\pagestyle{main} % включить стиль страницы, empty для того чтобы выключить
+
+\usepackage{soul} % регулирование отступа при подчёркивании с помощью команды \ul{}
+	\setul{0.15ex}{}
+
+% Математика
+\usepackage{amsmath,amsfonts,amssymb,amsthm,mathtools}
+\usepackage{witharrows} % позволяет указывать стрелки между выражениями
+\usepackage{nicematrix} % более качественные матрицы (см. документацию)
+\usepackage{xfrac} % дроби типа 12/3
+\usepackage{pgfplots} % рисование графиков функций
+\usepackage{tikz} % рисование всяких фигур
+\usetikzlibrary{positioning,datavisualization,datavisualization.formats.functions} % одна из библиотек для tikz
+\theoremstyle{plain}
+\newtheorem{ptheorem}{Теорема}[section] % Окружения теоремы и леммы из amsthm, квадратные скобки - нумерация относительно section
+\newtheorem{plemma}{Лемма}
+\newtheorem{pcorollary}{Следствие}[ptheorem]
+\newtheorem*{pdefinition}{Определение}
+\DeclareMathOperator{\tr}{tr} % добавление функции следа
+\DeclareMathOperator{\diag}{diag} % добавление функции diag
+\DeclareMathOperator{\interior}{int} % внутренность множества
+\DeclareMathOperator{\svec}{svec} % симметричная векторизация
+\DeclareMathOperator{\smat}{smat} % обратное отображение к симметричной векторизации
+\DeclareMathOperator{\rank}{rank} % ранг матрицы
+\DeclareMathOperator{\Card}{Card} % кол-во ненулевых компонент вектора
+\newcommand{\R}{\mathbb R} % добавить команду \R для поля вещественных чисел
+\newcommand{\norm}[1]{\left\lVert #1 \right\rVert} % печатает норму вокруг аргумента
+\DeclareMathOperator{\Prox}{prox} % вспомогательный оператор
+\newcommand{\prox}[3]{\Prox_{#1}^{#2} \left( #3 \right)} % проксимальный оператор
+\DeclareMathOperator{\sign}{sign} % функция знака
+
+% дать имя библиографии "Список литературы"
+\addto\captionsrussian{\def\refname{Список литературы}}
+
+% добавить литературу в содержание, должно следовать в тексте прямо ПОСЛЕ библиографии
+%\addcontentsline{toc}{section}{Список литературы}
+
+% установить счётчик \thepage на значение 2, писать нужно прямо перед \tableofcontents
+\setcounter{page}{2}
+
+\setlength{\tabcolsep}{10pt} % размер отступа перед началом текста в таблице
+\renewcommand{\arraystretch}{1.2} % размер ячеек таблицы по вертикали
+\setlength{\arrayrulewidth}{0.5mm} % толщина границ таблицы
+%\arrayrulecolor{darkblue} % цвет границ таблицы
+\newcolumntype{s}{>{\columncolor{yellow!25}} c} % новый тип столбца таблицы с заливкой
+\newcolumntype{f}{>{\columncolor{yellow!25}} l}
+\newcolumntype{u}{>{\columncolor{blue!10}} l}
+
+% Beamer
+%\usetheme{Madrid} % использовать тему Beamer "Madrid"
+%\usetheme{Berlin}
+%\usetheme{Copenhagen}
+%\usetheme{Boadilla}
+%\usetheme{Frankfurt}
+
+% Beamer Poster
+%\usepackage[orientation=portrait,size=a0,scale=1.4]{beamerposter} % делать постер в Beamer
+%\usecolortheme{rose} % цветовая тема
+%\usecolortheme{seahorse}
+%\usecolortheme{albatross}
+%\usecolortheme{beetle}
+%\usecolortheme{wolverine}
+%\usecolortheme{dove}
+%\usecolortheme{beaver}
+%\setbeamertemplate{navigation symbols}{} % убрать символы навигации
+%\setbeamertemplate{headline}{} % убрать заголовок сверху привнесёный \section
+%\setbeamertemplate{bibliography item}[text] % нумеровать список литературы в Beamer
+%\setbeamertemplate{caption}[numbered] % нумеровать картинки в Beamer
+%\setbeamercolor{block title}{fg=darkyellow,bg=darkblue} % перекрасить заголов block
+%\setbeamercolor{title-color}{fg=white,bg=darkblue} % создать свой цвет в Beamer
+%\setbeamercolor{background canvas}{bg=green} % перекрасить задний фон
+%\setbeamerfont{block title}{size=\bfseries \fontsize{60}{72}\selectfont} % изменить шрифт заголовка block
+%\setbeamertemplate{headline}{% создать свой заголовок
+	%	\begin{beamercolorbox}[wd=\paperwidth]{title-color}
+		%		\vspace{5mm}
+		%		\begin{columns}
+			%			\begin{column}{0.15\textwidth}
+				%				\centering
+				%				\includegraphics[width=0.85\linewidth]{img}
+				%			\end{column}
+			%			\begin{column}{0.35\textwidth}
+				%				\bfseries
+				%				{\fontsize{80}{96}\selectfont DENT}\\[8mm]
+				%				{\fontsize{48}{60}\selectfont Рук. Кулагин Н. А.\\[6mm] Дубна, Строителей 3}
+				%			\end{column}
+			%			\begin{column}{0.45\textwidth}
+				%				\centering
+				%				\bfseries
+				%				{\fontsize{60}{72}\selectfont Бизнес-план по разработке видеоигры по мотивам <<Щелкунчика>>}\\[8mm]
+				%				{\fontsize{48}{60}\selectfont 2023}
+				%			\end{column}
+			%		\end{columns}
+		%		\vspace{5mm}
+		%	\end{beamercolorbox}
+	%}
