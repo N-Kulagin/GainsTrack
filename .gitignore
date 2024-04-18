@@ -1,3 +1,8 @@
+/build
+*.sh
+
+GainsTrack/bin
+
 projectDesc/projectDesc.aux
 projectDesc/projectDesc.bbl
 projectDesc/projectDesc.blg
@@ -5,3 +10,4 @@ projectDesc/projectDesc-blx.bib
 projectDesc/projectDesc.log
 projectDesc/projectDesc.out
 projectDesc/projectDesc.run.xml
+GainsTrack.code*
